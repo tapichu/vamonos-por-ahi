@@ -1,24 +1,28 @@
 (function($, undefined) {
 
   var slideSwitch = function() {
-    var $active = $('.slideshow img.active');
+    $('div.slideshow').each(function() {
+      var $this = $(this);
 
-    if ($active.length == 0) $active = $('.slideshow img:last-child');
+      var $active = $('img.active', $this);
 
-    var $next = $active.next().length ? $active.next()
-      : $('.slideshow img:first-child');
+      if ($active.length == 0) $active = $('img:last', $this);
 
-    $active.addClass('last-active');
+      var $next = $active.next().length ? $active.next()
+        : $('img:first', $this);
 
-    $next.css({opacity: 0.0})
-      .addClass('active')
-      .animate({opacity: 1.0}, 1000, function() {
-        $active.removeClass('active last-active');
-      });
+      $active.addClass('last-active');
+
+      $next.css({opacity: 0.0})
+        .addClass('active')
+        .animate({opacity: 1.0}, 1000, function() {
+          $active.removeClass('active last-active');
+        })
+    });
   };
 
   $(document).ready(function() {
-    setInterval(slideSwitch, 4000);
+    setInterval(slideSwitch, 5000);
   });
 
 })(jQuery);
